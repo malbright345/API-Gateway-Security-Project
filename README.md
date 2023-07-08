@@ -148,6 +148,96 @@ Name the API and click to add integration: <br/>
 <br />
 <br />
 <br />
+24 Instead of creating authorizer here we will first create an authorizer and app client through Cognito:  <br/>
+<img src="https://i.imgur.com/9rNZE3D.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+25 navigate back to console and open Cognito in new tab:  <br/>
+<img src="https://i.imgur.com/fSZK1xF.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+26 start with Cognito by vreating user pool:  <br/>
+<img src="https://i.imgur.com/LITx6py.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+27 Configure sign in experience through Cognito check user name and email for sign in options :  <br/>
+<img src="https://i.imgur.com/mtijisZ.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+28 click next :  <br/>
+<img src="https://i.imgur.com/yvnf9Q8.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+29 Keep cognito defaults for password requirements:  <br/>
+<img src="https://i.imgur.com/f6qT417.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+30 Select No MFA Enable self-service account recovery email only for messages and click next:  <br/>
+<img src="https://i.imgur.com/ONiGy4p.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+31 Keep defaults for self-service sign-up:  <br/>
+<img src="https://i.imgur.com/bVXtk2B.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+32 Keep defaults click next at the bottom to continue configuring user pool:  <br/>
+<img src="https://i.imgur.com/ouc9so6.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+33 Select send email with Cognito keep the rest of the default selections and click next:  <br/>
+<img src="https://i.imgur.com/2DBUElo.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+34 Name user pool and select use Cognito Hosted UI:  <br/>
+<img src="https://i.imgur.com/OXYOYkB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+35 Use Cognito domain name the domain and select public client for app client:  <br/>
+<img src="https://i.imgur.com/CSY1mUy.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+36 Select Public client name the app client and select don't generate client secret:  <br/>
+<img src="https://i.imgur.com/yaNqcWH.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+37 Add Postman callback url to be able to use Postman to extract the JWT credentials when they are sent as well as using localhost to collect the JWT credentials:  <br/>
+<img src="https://i.imgur.com/VV9EiKl.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+38 Keep Cognito user pool as the identity provider and select oauth grant type to be implicit grant so we can collect the JWT that will be sent to the callback url:  <br/>
+<img src="https://i.imgur.com/H4b4ygI.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+39 Select OIDC scopes which will later show up in the JWT tokens and click next:  <br/>
+<img src="https://i.imgur.com/KEoQph5.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+40 Review settings on next page scroll to the bottom and click create user pool:  <br/>
+<img src="https://i.imgur.com/yZF4q8P.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+6 Click Create Function:  <br/>
+<img src="https://i.imgur.com/0Ev5MFu.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
 6 Click Create Function:  <br/>
 <img src="https://i.imgur.com/0Ev5MFu.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
