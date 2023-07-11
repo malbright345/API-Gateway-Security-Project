@@ -1,30 +1,32 @@
 <h1>Secure API Gateway with Amazon Cognito</h1>
 
-### Oauth 2.0 Implicit Grant flow demo: Secure API Gateway with Amazon Cognito Authorizer and extract JSON Web Token (JWT) to analyze security risks and potential exposure of personal identifiable information (PII)
+### Oauth 2.0 Implicit Grant flow demo: Secure API Gateway with Amazon Cognito Authorizer and Extract JSON Web Token (JWT) to Analyze Security Risks and Potential Exposure of Personally Identifiable Information (PII)
 
 <h2>Introduction</h2>
-The OAuth 2.0 authorization framework is a protocol that allows a user to grant a third-party web site or application access to the user's protected resources though the use of short term credentials (web tokens). Instead of sharing long-term credentials such as passwords with the third-party app, OAuth 2.0 utilizes JSON web tokens (JWTs) to delegate granular permissions and authorize specific actions.
+The OAuth 2.0 authorization framework is a protocol that allows a user to grant a third-party web site or application access to the user's protected resources though the use of short-term credentials (web tokens). Instead of sharing long-term credentials such as passwords with the third-party app, OAuth 2.0 utilizes JSON web tokens (JWTs) to delegate granular permissions and authorize specific actions.
 <br />
-OAuth 2.0 supports several grant types, or “flows” which are used to authorize access to protected resources in different ways. In this example, we will examine using implicit grant to obtain web token, and analyze security risks associated with implicit grant, such as cross-site scripting, cross-site request forgery, token stealing and potential disclosure of sensitive information.
+OAuth 2.0 supports several grant types, or “flows” which are used to authorize access to protected resources in different ways. In this example, we will examine using implicit grant to obtain web token, and analyze security risks associated with implicit grant that can lead to broken access control, such as token stealing, session hijacking, and potential disclosure of sensitive information.
 <br />
 <h2>Description </h2>
-When an API Gateway is first created, it is open or public, meaning that it can be accessed from the internet by anyone who knows the invoke url. To ensure that only authorized users can access this API, an authorizer should be attached to the API Gateway. Using Amazon Cognito, it is possible to implement OAuth 2.0 authorization framework to protect access to the newly created API Gateway and its resources.
+
+In this demo, We will create an Amazon API gateway, integrate it with a Lambda function, and then configure a Cognito Authorizer to limit access to only authenticated users. After the Cognito Authorizer is attached to the API Gateway, a valid JWT must be included in the header of all subsequent API calls to prove that the user making the API call has been properly authenticated and has appropriate permissions to access the API.
 <br />
-In this example, we will create an API gateway, integrate it with a Lambda function, and then configure a Cognito Authorizer to limit access to only authenticated users.  After the Cognito Authorizer is attached to the API Gateway, a valid JWT must be included in the header of all subsequent API calls to prove that the user making the API call has been properly authenticated and has appropriate permissions to access the API. 
 <br />
-<h2>Languages and Utilities Used</h2>
+<h2>Web Services Used </h2>
 
-- <b>PowerShell</b> 
-- <b>Diskpart</b>
+- <b>Amazon API Gateway</b>
+- <b>Amazon Lambda Function</b>
+- <b>Amazon Cognito</b>
+- <b>Postman.com</b>
+- <b>jwt.io</b>
 
-<h2>Environments Used </h2>
-
-- <b>Windows 10</b> (21H2)
-
+We will use Amazon Web Services (AWS) to illustrate OAuth 2.0 implicit grant work flow, jwt.io to decode and display the plain-text JSON web tokens, and Postman.com to test access controls to the API Gateway. 
 <h2>Program walk-through:</h2>
+<br />
+<br /> 
 
 <p align="left">
-Navigate to the AWS console and select the icon for API Gateway: <br/>
+To get started, sign in to your AWS account and navigate to the AWS console to select the icon for API Gateway: <br/>
 <img src="https://i.imgur.com/oi18NcA.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
@@ -233,63 +235,168 @@ Name the API and click to add integration: <br/>
 <br />
 <br />
 <br />
-6 Click Create Function:  <br/>
-<img src="https://i.imgur.com/0Ev5MFu.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+41 Cognito-user-pool is now created and we can click on it to create a dummy user to use to log in and extract JWT credentials:  <br/>
+<img src="https://i.imgur.com/wwZ9i7X.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-6 Click Create Function:  <br/>
-<img src="https://i.imgur.com/0Ev5MFu.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+42 In cognito-user-pool under the users tab click to create user:  <br/>
+<img src="https://i.imgur.com/FfsnPD6.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-6 Click Create Function:  <br/>
-<img src="https://i.imgur.com/0Ev5MFu.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+43 Create user and configure sign-in details:  <br/>
+<img src="https://i.imgur.com/sqq8Biu.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-6 Click Create Function:  <br/>
-<img src="https://i.imgur.com/0Ev5MFu.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+44 Set the temporary password and click create user:  <br/>
+<img src="https://i.imgur.com/VAhtKGf.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-6 Click Create Function:  <br/>
-<img src="https://i.imgur.com/0Ev5MFu.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+45 Testuser is now created and we can navigate to app integration to log in as this user and retrive JWT credentials that will be sent in the url after successful login:  <br/>
+<img src="https://i.imgur.com/GVDj2pw.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-6 Click Create Function:  <br/>
-<img src="https://i.imgur.com/0Ev5MFu.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+46 from users tab navigate to app integration tab to go to app client and open the hosted UI to log in as testuser:  <br/>
+<img src="https://i.imgur.com/bKalepO.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-6 Click Create Function:  <br/>
-<img src="https://i.imgur.com/0Ev5MFu.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+47 Under app integration scroll down to find app client name and click on it to see more about the app client:  <br/>
+<img src="https://i.imgur.com/YNNalmJ.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-6 Click Create Function:  <br/>
-<img src="https://i.imgur.com/0Ev5MFu.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+48 Scroll down to find view hosted UI:  <br/>
+<img src="https://i.imgur.com/44ynmlY.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-6 Click Create Function:  <br/>
-<img src="https://i.imgur.com/0Ev5MFu.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+49 Click View Hosted UI to login as testuser and obtain JWT credentails:  <br/>
+<img src="https://i.imgur.com/mKdyfW2.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-6 Click Create Function:  <br/>
-<img src="https://i.imgur.com/0Ev5MFu.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+50 The hosted UI uses the domain we specified as the app client domain and prompts us to login :  <br/>
+<img src="https://i.imgur.com/se8jBVD.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-6 Click Create Function:  <br/>
-<img src="https://i.imgur.com/0Ev5MFu.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+51 first time we log in we need to change the password :  <br/>
+<img src="https://i.imgur.com/BLsrko1.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-6 Click Create Function:  <br/>
-<img src="https://i.imgur.com/0Ev5MFu.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+52 After successfully logging in we will be redirected to localhost and sent JWT credentails in the url which we will copy and parse into relevant tokens:  <br/>
+<img src="https://i.imgur.com/ZrWaXtE.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+53 The JWT Credentials returned in URL copy-pasted into pages:  <br/>
+<img src="https://i.imgur.com/f0CgKNf.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+53.01 Show Copy JSON token before pasting into jwt decoder:  <br/>
+<img src="https://i.imgur.com/Wr7dU7Z.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+53.02 SHow paste into jwt decoder:  <br/>
+<img src="https://i.imgur.com/F0dDBJA.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+53.03 Full JWT but small because zoomed out :  <br/>
+<img src="https://i.imgur.com/QbyURoX.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+53.04 JWT consistes of three parts the header body and signature:  <br/>
+<img src="https://i.imgur.com/IyCWh3W.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+53.05 Show Decoded JWT zoomed in:  <br/>
+<img src="https://i.imgur.com/trhDE4R.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+54 When we refresh the page we see that the api is still open and does not require any authorization to access the lambda function:  <br/>
+<img src="https://i.imgur.com/AMVcc8L.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+55 Now that we have JWT credentails extracted from Cognito it's time to secure our API so that it cannot be accessed without first logging in to retrieve credentials:  <br/>
+<img src="https://i.imgur.com/AT6dKCr.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+56 Attach Cognito Authorizer to secure API Gateway:  <br/>
+<img src="https://i.imgur.com/uDTpliP.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+57 User pool id and app client id attach authorizer:  <br/>
+<img src="https://i.imgur.com/RItcY1f.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+57.01 Client ID and user pool id that are put in the authorizer are present in the token claims:  <br/>
+<img src="https://i.imgur.com/9OEhNAy.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+58 JWT Authorizer now secures API:  <br/>
+<img src="https://i.imgur.com/PrOfq07.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+59 Now that JWT authorizer is attached to API Gateway, my-api-lambda is no longer accessible without first logging in and obtaining JWT credentials:  <br/>
+<img src="https://i.imgur.com/CYuXfXu.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+60 Resending API invoke url to see if the resposne is now differnet that the authorizer has been attached:  <br/>
+<img src="https://i.imgur.com/AEV5NFX.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+61 Postman now returns 401 unauthorized and message unauthorized:  <br/>
+<img src="https://i.imgur.com/4LWylVy.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+62 To use JWT as credentails in Postman copy the access token that we got from the callback url:  <br/>
+<img src="https://i.imgur.com/QAaYrIW.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+63 Paste Authorization token into authorization header in postman api:  <br/>
+<img src="https://i.imgur.com/bvazzoh.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+64 Paste the token into the Authorization header and resend the request to the api:  <br/>
+<img src="https://i.imgur.com/BDsQHix.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+65 we have the 200 OK response and the lambda message showing that we have access because the token was included in the header:  <br/>
+<img src="https://i.imgur.com/HEiKnYN.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+66 Access Token that was used in authorization header to access API as authorized user:  <br/>
+<img src="https://i.imgur.com/171IOfQ.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+67 The signature at the bottom is verified so its a valid token just needed to be verified by Cognito authorizer as well:  <br/>
+<img src="https://i.imgur.com/8Cc8AFS.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
