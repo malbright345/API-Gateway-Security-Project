@@ -156,7 +156,7 @@ Under the "Lambda" tab, we can copy the name of the function and add it to the e
 <br />
 <br />
 <br />
-In the URL bar, type https://ti5gc09a66.execute-api.us-east-2.amazonaws.com/my-api-lambda, which is the "my-api" API "invoke URL" / the name of the lambda function "my-api-lambda." Accessing the "Hello from Lambda: Secure me!" message proves that the endpoint is openly accessible without needing any credentials to authenticate:  <br/>
+In the URL bar, type the API "invoke URL" / the name of the lambda function. Accessing the "Hello from Lambda: Secure me!" message proves that the endpoint is openly accessible without needing any credentials to authenticate:  <br/>
 <br/>
 <img src="https://i.imgur.com/dh9vJsX.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
@@ -356,6 +356,10 @@ Click View Hosted UI" to login as "testuser":  <br/>
 <br />
 <br />
 <br />
+- <b>Retrieving JWT from URL and Decoding Using jwt.io</b> <br/>
+<br />
+<br />
+<br />
  After successfully logging in we will be redirected to localhost:3000 and sent JWT credentails in the URL bar, which we will copy and separate into relevant tokens:  <br/>
   <br/>
 <img src="https://i.imgur.com/ZrWaXtE.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
@@ -378,13 +382,7 @@ Click View Hosted UI" to login as "testuser":  <br/>
 <br />
 <br />
 <br />
- - <b>JWT and Implicit Grant Analysis <b/>
- <br />
-<br />
-<br />
- 
- JWT consists of three parts: the header, body, and signature.  The integrity of the information in the JWT is protected by the Hash-Based Message Authentication Code (HMAC) in the signature. Although the header and the body of the JWT are hashed to create the signaure, which can be verified to ensure that the token was not altered or tampered with, it is only the signatue that is encrypted (usually with the private key of the authorization server that issued the JWT) The rest of the token is base64 encoded, which means that the header and body can be read by anyone. This is why it's important not to put sensitive information in the body of the JWT.  
- Another security risk with OAuth 2.0 Implicit Grant is that these tokens are sent in the URL or the unprotected "front channel" which is not encrypted.  Sending tokens in the URL not only potentially exposes the information in the body of the token, but also increases the chances that a JWT will be intentionally stolen or even unintentionaly logged by the browser history or any other application that can access the URL bar. If a JWT is intercepted, it can be used by a malicious actor to impersonate the intended user and hijack the session.  JWTs should be protected like API keys, passwords, or any other credentials, and should not be sent in unecrypted channels where they can be easily intercepted.   <br/>
+
  <br/>
 <img src="https://i.imgur.com/IyCWh3W.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
@@ -398,6 +396,16 @@ Click View Hosted UI" to login as "testuser":  <br/>
   <br/>
 <img src="https://i.imgur.com/trhDE4R.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
+<br />
+<br />
+ - <b>JWT and Implicit Grant Analysis <b/>
+ <br />
+<br />
+<br />
+ 
+ JWT consists of three parts: the header, body, and signature.  The integrity of the information in the JWT is protected by the Hash-Based Message Authentication Code (HMAC) in the signature. Although the header and the body of the JWT are hashed to create the signaure, which can be verified to ensure that the token was not altered or tampered with, it is only the signatue that is encrypted (usually with the private key of the authorization server that issued the JWT) The rest of the token is base64 encoded, which means that the header and body can be read by anyone. This is why it's important not to put sensitive information in the body of the JWT.  
+ Another security risk with OAuth 2.0 Implicit Grant is that these tokens are sent in the URL or the unprotected "front channel" which is not encrypted.  Sending tokens in the URL not only potentially exposes the information in the body of the token, but also increases the chances that a JWT will be intentionally stolen or even unintentionaly logged by the browser history or any other application that can access the URL bar. If a JWT is intercepted, it can be used by a malicious actor to impersonate the intended user and hijack the session.  JWTs should be protected like API keys, passwords, or any other credentials, and should not be sent in unecrypted channels where they can be easily intercepted.   <br/>
+ <br />
 <br />
 <br />
  - <b> Using JWT Authorizer to Secure API Gateway <b/>
