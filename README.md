@@ -43,7 +43,7 @@ Once in API Gateway, select HTTP API and click "Build":  <br/>
 <br />
 <br />
 <br />
-Name the API and click to add integration: <br/>
+Name the API Gateway and click to add integration: <br/>
 <br/>
 <img src="https://i.imgur.com/8FAVCiX.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
@@ -70,19 +70,19 @@ For a Lambda integration, API Gateway invokes the Lambda function and responds w
 <br />
 <br />
 <br />
-Click Create Function:  <br/>
+Click "Create Function":  <br/>
  <br />
 <img src="https://i.imgur.com/0Ev5MFu.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
- Enter a name for the function and keep the defaults for author from scratch and the runtime and architecture:  <br/>
+ Enter a name for the function and keep the defaults for "author from scratch":  <br/>
  <br />
 <img src="https://i.imgur.com/PnraodU.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
- By default, Lambda will create an execution role with permissions to upload logs. Click create function:  <br/>
+ By default, Lambda will create an execution role with permissions to upload logs. Click "create function":  <br/>
   <br/>
 <img src="https://i.imgur.com/eB0bGgh.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
@@ -94,7 +94,7 @@ The function is now created. We need to scroll down to see the code section and 
 <br />
 <br />
 <br />
- Edit the response message in the code of the Lambda function and click deploy:  <br/>
+ Edit the response message in the code of the Lambda function and click "deploy":  <br/>
   <br/>
 <img src="https://i.imgur.com/KlTFfmI.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
@@ -109,13 +109,13 @@ The function is now created. We need to scroll down to see the code section and 
 <br />
 <br />
 <br />
- Click next to continue creating the API Gateway. my-api-lambda function will now be integrated with my-api gateway:  <br/>
+ Click "next" to continue creating the API Gateway. In this example, the Lambda function we just created "my-api-lambda" , will now be integrated with the API Gateway we just created named "my-api":  <br/>
  <br/>
 <img src="https://i.imgur.com/nfZv5qV.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
- The next step is to configure routes, the method is set to Any by default, but we will change it to Get:  <br/>
+ The next step is to configure routes, the method is set to ANY by default, but we will change it to GET:  <br/>
 <img src="https://i.imgur.com/t7ulGfi.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
@@ -125,19 +125,19 @@ The function is now created. We need to scroll down to see the code section and 
 <br />
 <br />
 <br />
-Keep the rest of the defualts, click next, resource path and integration target will be specified:  <br/>
+Keep the rest of the defualts, click "next":  <br/>
  <br/>
 <img src="https://i.imgur.com/KyhvfQ6.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-Keep default stage and click next:  <br/>
+Keep default stage and click "next":  <br/>
 <br />
 <img src="https://i.imgur.com/YlZK7G5.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-Review and click create to create API Gateway with lambda integration:  <br/>
+Review and click "create" to create API Gateway with Lambda integration:  <br/>
  <br/>
 <img src="https://i.imgur.com/MR4yTI1.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
@@ -146,30 +146,30 @@ Review and click create to create API Gateway with lambda integration:  <br/>
  - <b>Demonstrate That The API Gateway Is Currently Open to the Internet</b>
 <br />
 <br />
-API Gateway is now inegrated with the Lambda function.  Knowing the Invoke URL and the name of the Lambda function is sufficient to access the resource  :  <br/>
+API Gateway is now inegrated with the Lambda function.  Knowing the "Invoke URL" of the API Gateway and the name of the Lambda function is sufficient to access the resource  :  <br/>
 <img src="https://i.imgur.com/YTE32Nm.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-We can copy the name of the function under the "Lambda" tab, and add it to the end of the API invoke url path :  <br/>
+Under the "Lambda" tab, we can copy the name of the function and add it to the end of the API "invoke url" path :  <br/>
 <br/>
 <img src="https://i.imgur.com/3Qb6UA1.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-In the URL bar, type the API invoke URL and append the name of the lambda function to prove that the "hello from Lambda, Secure me!" message is accessible without needing any credentials to authenticate:  <br/>
+In the URL bar, type the "my-api" API "invoke URL" and append the name of the lambda function "my-api-lambda" to prove that the "Hello from Lambda: Secure me!" message is openly accessible without needing any credentials to authenticate:  <br/>
 <br/>
 <img src="https://i.imgur.com/dh9vJsX.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-The same URL can be used in Postman.com to prove that no credentials are necessary to access our Lambda function. Type in the URL for our resource and click send:  <br/>
+We can also demonstrate open access to the resource by using Postman.com, which is an API platform for building, testing, and using APIs.  We can use Postman.com to add authorization headers to our API calls once we secure our API Gateway.  For now, since we havent't configured a Cognito user pool to serve as our identity provider, and haven't attached an authorizer to the API Gateway, we don't have any tokens to append to our message, nor are they required for access.  Therefore, the same URL that we typed in the browser URL bar to get access to our "Hello from Lambda: Secure me!" message in the screen shot above, can also be used in Postman.com to prove that no credentials are necessary to access our Lambda function. Type in the same URL for our resource into Postman.com (or copy-paste it from your browser's URL) and click send:  <br/>
 <br/>
 <img src="https://i.imgur.com/hFRIupW.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-The response in Postman is "200 ok" and the "secure me" message is returned just by entering the link, with no credentials or token:  <br/>
+The response from Postman is "200 OK" and the "Hello from Lambda: Secure me!" message is returned, demonstrating that my-api-lambda resource is currently freely accessible from the public internet:  <br/>
 <img src="https://i.imgur.com/H9w3Gbp.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
