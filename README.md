@@ -99,8 +99,7 @@ The function is now created. We need to scroll down to see the code section and 
 <img src="https://i.imgur.com/KlTFfmI.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
-<br />
- - <b>Integrate Lambda function with API Gateway</b>
+ - <b>Integrate Lambda Function with API Gateway</b>
  <br />
 <br />
  Navigate back to API Gateway tab and select the newly created Lambda from the drop down menu to integrate it:  <br/>
@@ -174,12 +173,17 @@ The response from Postman is "200 OK" and the "Hello from Lambda: Secure me!" me
 <br />
 <br />
 <br />
-22 to secure api go to api gateway tab and click on routes:  <br/>
+ - <b>Begin Configuring Authorizer to Secure API Gateway</b>
+ <br />
+<br />
+ 
+To begin configuring an authorizer for the API Gateway, go to API Gateway tab and click on routes:  <br/>
 <img src="https://i.imgur.com/uk1P2ZM.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-23 select get route and attach authorization currently it has none and is an open route:  <br/>
+ Select "GET route" to see that there are currently no authorizers attached:  <br/>
+  <br/>
 <img src="https://i.imgur.com/Clrpm39.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
