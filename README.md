@@ -323,14 +323,12 @@ Create user and configure sign-in details:  <br/>
 <br />
 <br />
 <br />
-  From "users" tab navigate to "app integration" tab to find the app client:  <br/>
+  From "users" tab navigate to "app integration" tab to find the app client. Scroll down to find app client name and click on it:  <br/>
    <br/>
 <img src="https://i.imgur.com/bKalepO.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
- Under "app integration" scroll down to find app client name and click on it:  <br/>
-  <br/>
 <img src="https://i.imgur.com/YNNalmJ.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
@@ -340,13 +338,13 @@ Create user and configure sign-in details:  <br/>
 <br />
 <br />
 <br />
-Click View Hosted UI" to login as testuser and obtain JWT credentails in the URL bar:  <br/>
+Click View Hosted UI" to login as "testuser":  <br/>
  <br/>
 <img src="https://i.imgur.com/mKdyfW2.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
- The hosted UI uses the domain we specified as the app client domain and prompts us to login :  <br/>
+ The hosted UI uses the domain we specified as the app client domain and prompts us to log in :  <br/>
   <br/>
 <img src="https://i.imgur.com/se8jBVD.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
@@ -364,38 +362,50 @@ Click View Hosted UI" to login as testuser and obtain JWT credentails in the URL
 <br />
 <br />
 <br />
-  These are the JWT Credentials returned in the URL and copy-pasted into pages:  <br/>
+  These are the JWT Credentials returned in the URL and copy-pasted into pages.  These tokens are base64 encoded but they are not encrypted.  They can be decoded into plain-text JSON that is easily readable:  <br/>
    <br/>
 <img src="https://i.imgur.com/f0CgKNf.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-   Show Copy JSON token before pasting into jwt decoder:  <br/>
+   Base64 encoded JSON token before pasting into jwt decoder at jwt.io:  <br/>
 <img src="https://i.imgur.com/Wr7dU7Z.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-53.02 SHow paste into jwt decoder:  <br/>
+  Paste token into jwt.io decoder to view the header, body, and signature:  <br/>
 <img src="https://i.imgur.com/F0dDBJA.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-53.03 Full JWT but small because zoomed out :  <br/>
-<img src="https://i.imgur.com/QbyURoX.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+ - <b>JWT and Implicit Grant Analysis <b/>
+ <br />
 <br />
 <br />
-<br />
-53.04 JWT consistes of three parts the header body and signature:  <br/>
+ 
+ JWT consists of three parts: the header, body, and signature.  The integrity of the information in the JWT is protected by the Hash-Based Message Authentication Code (HMAC) in the signature. Although the header and the body of the JWT are hashed to create the signaure, which can be verified to ensure that the token was not altered or tampered with, it is only the signatue that is encrypted (usually with the private key of the authorization server that issued the JWT) The rest of the token is base64 encoded, which means that the header and body can be read by anyone. This is why it's important not to put sensitive information in the body of the JWT.  
+ Another security risk with OAuth 2.0 Implicit Grant is that these tokens are sent in the URL or the unprotected "front channel" which is not encrypted.  Sending tokens in the URL not only potentially exposes the information in the body of the token, but also increases the chances that a JWT will be intentionally stolen or even unintentionaly logged by the browser history or any other application that can access the URL bar. If a JWT is intercepted, it can be used by a malicious actor to impersonate the intended user and hijack the session.  JWTs should be protected like API keys, passwords, or any other credentials, and should not be sent in unecrypted channels where they can be easily intercepted.   <br/>
+ <br/>
 <img src="https://i.imgur.com/IyCWh3W.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-53.05 Show Decoded JWT zoomed in:  <br/>
+
+<img src="https://i.imgur.com/QbyURoX.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />
+<br />
+  <br/>
 <img src="https://i.imgur.com/trhDE4R.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-54 When we refresh the page we see that the api is still open and does not require any authorization to access the lambda function:  <br/>
+ - <b> Using JWT Authorizer to Secure API Gateway <b/>
+<br />
+<br />
+<br />
+
+We configured the Cognito user pool to issue the tokens, but we still haven't attached a JWT authorizer to the API Gateway to actually secure our resources.  We can prove that the API Gateway is still public by refreshing the browser to see the "Hello from Lambda: Secure me!" message  <br/>
 <img src="https://i.imgur.com/AMVcc8L.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
@@ -467,16 +477,6 @@ Click View Hosted UI" to login as testuser and obtain JWT credentails in the URL
 <br />
 67 The signature at the bottom is verified so its a valid token just needed to be verified by Cognito authorizer as well:  <br/>
 <img src="https://i.imgur.com/8Cc8AFS.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-<br />
-<br />
-<br />
-6 Click Create Function:  <br/>
-<img src="https://i.imgur.com/0Ev5MFu.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-<br />
-<br />
-<br />
-6 Click Create Function:  <br/>
-<img src="https://i.imgur.com/0Ev5MFu.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
