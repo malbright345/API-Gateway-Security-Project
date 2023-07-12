@@ -43,7 +43,7 @@ Once in API Gateway, select HTTP API and click "Build":  <br/>
 <br />
 <br />
 <br />
-Name the API Gateway and click to add integration: <br/>
+Name the API Gateway and click to "add integration": <br/>
 <br/>
 <img src="https://i.imgur.com/8FAVCiX.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
@@ -156,7 +156,7 @@ Under the "Lambda" tab, we can copy the name of the function and add it to the e
 <br />
 <br />
 <br />
-In the URL bar, type the "my-api" API "invoke URL" and append the name of the lambda function "my-api-lambda" to prove that the "Hello from Lambda: Secure me!" message is openly accessible without needing any credentials to authenticate:  <br/>
+In the URL bar, type https://ti5gc09a66.execute-api.us-east-2.amazonaws.com/my-api-lambda, which is the "my-api" API "invoke URL" / the name of the lambda function "my-api-lambda." Accessing the "Hello from Lambda: Secure me!" message proves that the endpoint is openly accessible without needing any credentials to authenticate:  <br/>
 <br/>
 <img src="https://i.imgur.com/dh9vJsX.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
@@ -182,128 +182,154 @@ To begin configuring an authorizer for the API Gateway, go to API Gateway tab an
 <br />
 <br />
 <br />
- Select "GET route" to see that there are currently no authorizers attached:  <br/>
+ Select "GET" under the name of the Lambda function to see that there are currently no authorizers attached to this path:  <br/>
   <br/>
 <img src="https://i.imgur.com/Clrpm39.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-24 Instead of creating authorizer here we will first create an authorizer and app client through Cognito:  <br/>
+There are currently no authorizers to select from.  <br/>
+<br />
 <img src="https://i.imgur.com/9rNZE3D.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-25 navigate back to console and open Cognito in new tab:  <br/>
+- <b>Configure Cognito User Pool and App Client</b> <br/>
+<br />
+In order to configure a JWT authorizer to protect this resource, we will first create an identity provider in the form of a Cognito User Pool to issue tokens, and an app client that will request these tokens and return them in a callback URL. Then we will create a test user with which to sign in to the app client to request the tokens that we will then use to access the API Gateway Lambda function:
+<br />
+<br />
+<br />
+Navigate back to console and open Cognito in new tab:  <br/>
+<br />
 <img src="https://i.imgur.com/fSZK1xF.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-26 start with Cognito by vreating user pool:  <br/>
+Start with Cognito by creating the user pool.  The user pool serves as the authorization server and issuer of JWTs:  <br/>
+<br />
 <img src="https://i.imgur.com/LITx6py.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-27 Configure sign in experience through Cognito check user name and email for sign in options :  <br/>
+Configure sign in experience through Cognito.  Check user name and email for sign in options :  <br/>
+<br />
 <img src="https://i.imgur.com/mtijisZ.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-28 click next :  <br/>
+Click "next" :  <br/>
+<br />
 <img src="https://i.imgur.com/yvnf9Q8.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-29 Keep cognito defaults for password requirements:  <br/>
+Keep Cognito defaults for password requirements:  <br/>
+<br />
 <img src="https://i.imgur.com/f6qT417.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-30 Select No MFA Enable self-service account recovery email only for messages and click next:  <br/>
+Select "No MFA", enable "self-service account recovery email" only for messages, and click next:  <br/>
+<br />
 <img src="https://i.imgur.com/ONiGy4p.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-31 Keep defaults for self-service sign-up:  <br/>
+Keep defaults for self-service sign-up:  <br/>
+<br />
 <img src="https://i.imgur.com/bVXtk2B.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-32 Keep defaults click next at the bottom to continue configuring user pool:  <br/>
+Keep defaults, click "next" at the bottom to continue configuring user pool:  <br/>
+<br />
 <img src="https://i.imgur.com/ouc9so6.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-33 Select send email with Cognito keep the rest of the default selections and click next:  <br/>
+Select "send email with Cognito," keep the rest of the default selections and click "next":  <br/>
+<br />
 <img src="https://i.imgur.com/2DBUElo.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-34 Name user pool and select use Cognito Hosted UI:  <br/>
+Name the user pool and select "Use Cognito Hosted UI".  The Cognito Hosted UI will provide the interface to log in with our test user.  Once authenticated, the test user will be able to request and receive JSON Web Tokens   <br/>
+<br />
 <img src="https://i.imgur.com/OXYOYkB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-35 Use Cognito domain name the domain and select public client for app client:  <br/>
+Use Cognito domain name:  <br/>
+<br />
 <img src="https://i.imgur.com/CSY1mUy.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-36 Select Public client name the app client and select don't generate client secret:  <br/>
+Select "Public Client" name the app client.  Since we are using OAuth 2.0 implicit grant, select "don't generate client secret":  <br/>
 <img src="https://i.imgur.com/yaNqcWH.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-37 Add Postman callback url to be able to use Postman to extract the JWT credentials when they are sent as well as using localhost to collect the JWT credentials:  <br/>
+Add localhost:3000 as the callback URL.  This URL is where the test user will be redirected after authenticating.  The JSON Web Tokens will also be sent to the URL bar after the test user successfully authenticaes to the Cognito User Pool through the Cognito Hosted UI:  <br/>
+  <br/>
 <img src="https://i.imgur.com/VV9EiKl.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-38 Keep Cognito user pool as the identity provider and select oauth grant type to be implicit grant so we can collect the JWT that will be sent to the callback url:  <br/>
+Keep Cognito user pool as the identity provider and select OAuth 2.0 grant type to be "implicit grant" so we can collect the JWT that will be sent to the callback url:  <br/>
 <img src="https://i.imgur.com/H4b4ygI.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-39 Select OIDC scopes which will later show up in the JWT tokens and click next:  <br/>
+Select OIDC scopes which will later show up in the JWT tokens and click next:  <br/>
+  <br/>
 <img src="https://i.imgur.com/KEoQph5.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-40 Review settings on next page scroll to the bottom and click create user pool:  <br/>
+Review settings on next page, scroll to the bottom, and click "create user pool":  <br/>
 <img src="https://i.imgur.com/yZF4q8P.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-41 Cognito-user-pool is now created and we can click on it to create a dummy user to use to log in and extract JWT credentials:  <br/>
+ Cognito-user-pool is now created and we can click on it to create a test user to use to log in and extract JWTs from the URL bar:  <br/>
 <img src="https://i.imgur.com/wwZ9i7X.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-42 In cognito-user-pool under the users tab click to create user:  <br/>
+- <b>Create Test User in Cognito User Pool</b> <br/>
+<br />
+<br />
+<br />
+In cognito-user-pool, under the users tab, click  "create user":  <br/>
 <img src="https://i.imgur.com/FfsnPD6.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-43 Create user and configure sign-in details:  <br/>
+Create user and configure sign-in details:  <br/>
 <img src="https://i.imgur.com/sqq8Biu.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-44 Set the temporary password and click create user:  <br/>
+  Set the temporary password and click "create user":  <br/>
 <img src="https://i.imgur.com/VAhtKGf.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-45 Testuser is now created and we can navigate to app integration to log in as this user and retrive JWT credentials that will be sent in the url after successful login:  <br/>
+ "Testuser" is now created, and we can navigate to "app integration" to log in as this user and retrive JWT credentials that will be sent in the url after successful login:  <br/>
+  <br/>
 <img src="https://i.imgur.com/GVDj2pw.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-46 from users tab navigate to app integration tab to go to app client and open the hosted UI to log in as testuser:  <br/>
+  From "users" tab navigate to "app integration" tab to go to app client.  Scroll down and click on "view hosted UI" to be taken to the page where we can log in as testuser:  <br/>
+   <br/>
 <img src="https://i.imgur.com/bKalepO.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-47 Under app integration scroll down to find app client name and click on it to see more about the app client:  <br/>
+ Under "app integration" scroll down to find app client name and click on it to see more about the app client:  <br/>
 <img src="https://i.imgur.com/YNNalmJ.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
