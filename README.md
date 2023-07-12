@@ -271,13 +271,13 @@ Select "Public Client" name the app client.  Since we are using OAuth 2.0 implic
 <br />
 <br />
 <br />
-Add localhost:3000 as the callback URL.  This URL is where the test user will be redirected after authenticating.  The JSON Web Tokens will also be sent to the URL bar after the test user successfully authenticaes to the Cognito User Pool through the Cognito Hosted UI:  <br/>
+Add localhost:3000 as the callback URL.  This URL is where the test user will be redirected after authenticating.  The JSON Web Tokens will also be sent to the URL bar after the test user successfully authenticaes to the Cognito User Pool through the Cognito Hosted UI. Optionally, you can also add the callback URL for postman.com to use the platform to test access to the API:  <br/>
   <br/>
 <img src="https://i.imgur.com/VV9EiKl.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-Keep Cognito user pool as the identity provider and select OAuth 2.0 grant type to be "implicit grant" so we can collect the JWT that will be sent to the callback url:  <br/>
+Keep Cognito user pool as the identity provider and select OAuth 2.0 grant type to be "implicit grant" for this demo so we can collect the JWT that will be sent to the callback url:  <br/>
 <img src="https://i.imgur.com/H4b4ygI.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
@@ -293,7 +293,7 @@ Review settings on next page, scroll to the bottom, and click "create user pool"
 <br />
 <br />
 <br />
- Cognito-user-pool is now created and we can click on it to create a test user to use to log in and extract JWTs from the URL bar:  <br/>
+ Cognito-user-pool is now created and we can click on it to create a test user to use to log in:  <br/>
 <img src="https://i.imgur.com/wwZ9i7X.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
@@ -317,54 +317,60 @@ Create user and configure sign-in details:  <br/>
 <br />
 <br />
 <br />
- "Testuser" is now created, and we can navigate to "app integration" to log in as this user and retrive JWT credentials that will be sent in the url after successful login:  <br/>
+ "Testuser" is now created, and we can navigate to "app integration" :  <br/>
   <br/>
 <img src="https://i.imgur.com/GVDj2pw.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-  From "users" tab navigate to "app integration" tab to go to app client.  Scroll down and click on "view hosted UI" to be taken to the page where we can log in as testuser:  <br/>
+  From "users" tab navigate to "app integration" tab to find the app client:  <br/>
    <br/>
 <img src="https://i.imgur.com/bKalepO.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
- Under "app integration" scroll down to find app client name and click on it to see more about the app client:  <br/>
+ Under "app integration" scroll down to find app client name and click on it:  <br/>
+  <br/>
 <img src="https://i.imgur.com/YNNalmJ.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-48 Scroll down to find view hosted UI:  <br/>
+ Scroll down to find "view hosted UI":  <br/>
 <img src="https://i.imgur.com/44ynmlY.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-49 Click View Hosted UI to login as testuser and obtain JWT credentails:  <br/>
+Click View Hosted UI" to login as testuser and obtain JWT credentails in the URL bar:  <br/>
+ <br/>
 <img src="https://i.imgur.com/mKdyfW2.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-50 The hosted UI uses the domain we specified as the app client domain and prompts us to login :  <br/>
+ The hosted UI uses the domain we specified as the app client domain and prompts us to login :  <br/>
+  <br/>
 <img src="https://i.imgur.com/se8jBVD.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-51 first time we log in we need to change the password :  <br/>
+  The first time we log in, we are required to change the password :  <br/>
+   <br/>
 <img src="https://i.imgur.com/BLsrko1.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-52 After successfully logging in we will be redirected to localhost and sent JWT credentails in the url which we will copy and parse into relevant tokens:  <br/>
+ After successfully logging in we will be redirected to localhost:3000 and sent JWT credentails in the URL bar, which we will copy and separate into relevant tokens:  <br/>
+  <br/>
 <img src="https://i.imgur.com/ZrWaXtE.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-53 The JWT Credentials returned in URL copy-pasted into pages:  <br/>
+  These are the JWT Credentials returned in the URL and copy-pasted into pages:  <br/>
+   <br/>
 <img src="https://i.imgur.com/f0CgKNf.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-53.01 Show Copy JSON token before pasting into jwt decoder:  <br/>
+   Show Copy JSON token before pasting into jwt decoder:  <br/>
 <img src="https://i.imgur.com/Wr7dU7Z.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
