@@ -21,11 +21,14 @@ In this demo, We will create an Amazon API gateway, integrate it with a Lambda f
 - <b>jwt.io</b>
 
 We will use Amazon Web Services (AWS) to illustrate OAuth 2.0 implicit grant work flow, jwt.io to decode and display the plain-text JSON web tokens, and Postman.com to test access controls to the API Gateway. 
-<h2>Program walk-through:</h2>
+<h1>Program walk-through:</h1>
 <br />
 <p align="left">
-Part One: <br /> 
-In order to observe the OAuth 2.0 Implicit Grant and analyze its potential vulnerabilities, we first need something to secure.  Therefore, we will create an Amazon API Gateway and integrate it with a simple lambda function as the backend service. 
+<h2>Part One: </h2> <br /> 
+In order to observe the OAuth 2.0 Implicit Grant and analyze its potential vulnerabilities, we first need something to secure.  Therefore, we will create an Amazon API Gateway and integrate it with a simple Lambda function as the backend service. 
+<br />
+<br />
+- <b>Create API Gateway</b>
 <br />
 <br /> 
 To get started, sign in to your AWS account and navigate to the AWS console to select the icon for API Gateway: <br/>
@@ -35,110 +38,138 @@ To get started, sign in to your AWS account and navigate to the AWS console to s
 <br />
 <br />
 Once in API Gateway, select HTTP API and click "Build":  <br/>
+<br/>
 <img src="https://i.imgur.com/CiRa3dn.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
 Name the API and click to add integration: <br/>
+<br/>
 <img src="https://i.imgur.com/8FAVCiX.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-4 Select Lambda integration for the API:  <br/>
+Select Lambda integration for the API. This is where we add the backend service that the API will communicate with.  <br/>
+<br />
 <img src="https://i.imgur.com/S1U2ewf.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
-5 The Lambda function needs to be created before we can integrate it with the API Gateway :  <br/>
+For a Lambda integration, API Gateway invokes the Lambda function and responds with the response from the Lambda function. The Lambda function needs to be created before we can integrate it with the API Gateway :  <br/>
+<br />
 <img src="https://i.imgur.com/crWckjz.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-5.1 Navigate back to AWS Console and chose Lambda to create the Lambda function that will be integrated with API Gateway:  <br/>
+ - <b>Create Lambda Function to Integrate with API Gateway</b>
+<br />
+<br />
+<br />
+ Navigate back to AWS Console and chose Lambda to create the Lambda function that will be integrated with API Gateway:  <br/>
+ <br />
 <img src="https://i.imgur.com/nNXjfEL.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-6 Click Create Function:  <br/>
+Click Create Function:  <br/>
+ <br />
 <img src="https://i.imgur.com/0Ev5MFu.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-7 Name the function and keep the defaults of author from scratch and runtime and architecture:  <br/>
+ Enter a name for the function and keep the defaults for author from scratch and the runtime and architecture:  <br/>
+ <br />
 <img src="https://i.imgur.com/PnraodU.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-8 Lambda will create an execution role with permissions to upload logs. Click create function:  <br/>
+ By default, Lambda will create an execution role with permissions to upload logs. Click create function:  <br/>
+  <br/>
 <img src="https://i.imgur.com/eB0bGgh.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-9 Function is now created. Scroll down to edit code and deploy:  <br/>
+The function is now created. We need to scroll down to see the code section and edit the code :  <br/>
+ <br />
 <img src="https://i.imgur.com/JERldJk.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-10 Edit the response message and click deploy:  <br/>
+ Edit the response message in the code of the Lambda function and click deploy:  <br/>
+  <br/>
 <img src="https://i.imgur.com/KlTFfmI.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-11 Continue to create API Gateway and select the newly created Lambda from the drop down menu:  <br/>
+ - <b>Integrate Lambda function with API Gateway</b>
+ <br />
+<br />
+ Navigate back to API Gateway tab and select the newly created Lambda from the drop down menu to integrate it:  <br/>
+ <br/>
 <img src="https://i.imgur.com/WnhCqwI.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-12 Click next to continue creating API. my-api-lambda function will now be integrated with my-api gateway:  <br/>
+ Click next to continue creating the API Gateway. my-api-lambda function will now be integrated with my-api gateway:  <br/>
+ <br/>
 <img src="https://i.imgur.com/nfZv5qV.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-12.1 The next screen is to configure routes, the method is set to Any by default, but we will change it to Get:  <br/>
+ The next step is to configure routes, the method is set to Any by default, but we will change it to Get:  <br/>
 <img src="https://i.imgur.com/t7ulGfi.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-13 Change route to Get, keep the rest of the defaults:  <br/>
+
 <img src="https://i.imgur.com/HW8QPWS.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-14 keep the rest of the defualts, click next, resource path and integration target will be specified:  <br/>
+Keep the rest of the defualts, click next, resource path and integration target will be specified:  <br/>
+ <br/>
 <img src="https://i.imgur.com/KyhvfQ6.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-15 keep default stage and click next:  <br/>
+Keep default stage and click next:  <br/>
+<br />
 <img src="https://i.imgur.com/YlZK7G5.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-16 Review and click create to create API Gateway with lambda integration:  <br/>
+Review and click create to create API Gateway with lambda integration:  <br/>
+ <br/>
 <img src="https://i.imgur.com/MR4yTI1.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-17 API gateway now exists copy the invoke url and add the name of the lambda function to the path to see open access:  <br/>
+ - <b>Demonstrate That The API Gateway Is Currently Open to the Internet</b>
+<br />
+<br />
+API Gateway is now inegrated with the Lambda function.  Knowing the Invoke URL and the name of the Lambda function is sufficient to access the resource  :  <br/>
 <img src="https://i.imgur.com/YTE32Nm.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-18 copy the name of the function to add to the end of the api invoke url path :  <br/>
+We can copy the name of the function under the "Lambda" tab, and add it to the end of the API invoke url path :  <br/>
+<br/>
 <img src="https://i.imgur.com/3Qb6UA1.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-19 function is publically accessible with invoke url of api slash the name of the lambda function we created:  <br/>
+In the URL bar, type the API invoke URL and append the name of the lambda function to prove that the "hello from Lambda, Secure me!" message is accessible without needing any credentials to authenticate:  <br/>
+<br/>
 <img src="https://i.imgur.com/dh9vJsX.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-20 navigate to postman and use the same link to show access is open :  <br/>
+The same URL can be used in Postman.com to prove that no credentials are necessary to access our Lambda function. Type in the URL for our resource and click send:  <br/>
+<br/>
 <img src="https://i.imgur.com/hFRIupW.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-21 response in postman is 200 ok and secure me message is returned just by entering the link with no credentials or token:  <br/>
+The response in Postman is "200 ok" and the "secure me" message is returned just by entering the link, with no credentials or token:  <br/>
 <img src="https://i.imgur.com/H9w3Gbp.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
