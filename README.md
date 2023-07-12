@@ -23,10 +23,13 @@ In this demo, We will create an Amazon API gateway, integrate it with a Lambda f
 We will use Amazon Web Services (AWS) to illustrate OAuth 2.0 implicit grant work flow, jwt.io to decode and display the plain-text JSON web tokens, and Postman.com to test access controls to the API Gateway. 
 <h2>Program walk-through:</h2>
 <br />
-<br /> 
-
 <p align="left">
+Part One: <br /> 
+In order to observe the OAuth 2.0 Implicit Grant and analyze its potential vulnerabilities, we first need something to secure.  Therefore, we will create an Amazon API Gateway and integrate it with a simple lambda function as the backend service. 
+<br />
+<br /> 
 To get started, sign in to your AWS account and navigate to the AWS console to select the icon for API Gateway: <br/>
+<br /> 
 <img src="https://i.imgur.com/oi18NcA.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
