@@ -94,7 +94,7 @@ The function is now created. We need to scroll down to see the code section and 
 <br />
 <br />
 <br />
- Edit the response message in the code of the Lambda function and click "deploy":  <br/>
+ Edit the response message in the code of the Lambda function to say "Hello from Lambda: Secure me!" and click "deploy":  <br/>
   <br/>
 <img src="https://i.imgur.com/KlTFfmI.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
