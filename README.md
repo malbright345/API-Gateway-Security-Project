@@ -156,7 +156,7 @@ Under the "Lambda" tab, we can copy the name of the function and add it to the e
 <br />
 <br />
 <br />
-In the URL bar, type the API "invoke URL" / the name of the lambda function. Accessing the "Hello from Lambda: Secure me!" message proves that the endpoint is openly accessible without needing any credentials to authenticate:  <br/>
+In the URL bar, type the API "invoke URL" /  name of the lambda function to specify the path. Accessing the "Hello from Lambda: Secure me!" message proves that this path is openly accessible:  <br/>
 <br/>
 <img src="https://i.imgur.com/dh9vJsX.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
@@ -182,7 +182,7 @@ To begin configuring an authorizer for the API Gateway, go to API Gateway tab an
 <br />
 <br />
 <br />
- Select "GET" under the name of the Lambda function to see that there are currently no authorizers attached to this path:  <br/>
+ Select "GET" under the my-api-lambda path to see that there are currently no authorizers attached to this path:  <br/>
   <br/>
 <img src="https://i.imgur.com/Clrpm39.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
@@ -254,7 +254,7 @@ Select "send email with Cognito," keep the rest of the default selections and cl
 <br />
 <br />
 <br />
-Name the user pool and select "Use Cognito Hosted UI".  The Cognito Hosted UI will provide the interface to log in with our test user.  Once authenticated, the test user will be able to request and receive JSON Web Tokens   <br/>
+Name the user pool and select "Use Cognito Hosted UI".  The Cognito Hosted UI will provide the interface to log in with our test user.  Once authenticated, the test user will be able to request JSON Web Tokens   <br/>
 <br />
 <img src="https://i.imgur.com/OXYOYkB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
@@ -277,12 +277,12 @@ Add localhost:3000 as the callback URL.  This URL is where the test user will be
 <br />
 <br />
 <br />
-Keep Cognito user pool as the identity provider and select OAuth 2.0 grant type to be "implicit grant" for this demo so we can collect the JWT that will be sent to the callback url:  <br/>
+Keep Cognito user pool as the identity provider and select OAuth 2.0 grant type to be "implicit grant" for this demo so we can collect the JWT that will be sent to the callback URL:  <br/>
 <img src="https://i.imgur.com/H4b4ygI.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-Select OIDC scopes which will later show up in the JWT tokens and click next:  <br/>
+Select OIDC scopes and click next.  Selecting OIDC scopes delegates permission to the user of this token to access the Open Id Connect profile of the user.  We will be able to see these scopes once we decode a valid JWT that will be issued by this Cognito user pool:  <br/>
   <br/>
 <img src="https://i.imgur.com/KEoQph5.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
@@ -293,7 +293,7 @@ Review settings on next page, scroll to the bottom, and click "create user pool"
 <br />
 <br />
 <br />
- Cognito-user-pool is now created and we can click on it to create a test user to use to log in:  <br/>
+ The Cognito user pool named "Cognito-user-pool" in this example is now created, and we can click on it to create a test user we will use to log in  <br/>
 <img src="https://i.imgur.com/wwZ9i7X.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
@@ -302,7 +302,7 @@ Review settings on next page, scroll to the bottom, and click "create user pool"
 <br />
 <br />
 <br />
-In cognito-user-pool, under the users tab, click  "create user":  <br/>
+  After clicking on "cognito-user-pool", under the "users tab", click  "create user":  <br/>
 <img src="https://i.imgur.com/FfsnPD6.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
@@ -317,7 +317,7 @@ Create user and configure sign-in details:  <br/>
 <br />
 <br />
 <br />
- "Testuser" is now created, and we can navigate to "app integration" :  <br/>
+ Our test user "testuser" is now created, and we can navigate to "app integration" :  <br/>
   <br/>
 <img src="https://i.imgur.com/GVDj2pw.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
@@ -333,7 +333,7 @@ Create user and configure sign-in details:  <br/>
 <br />
 <br />
 <br />
- Scroll down to find "view hosted UI":  <br/>
+ Scroll down to find "View Hosted UI":  <br/>
 <img src="https://i.imgur.com/44ynmlY.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
@@ -344,7 +344,7 @@ Click View Hosted UI" to login as "testuser":  <br/>
 <br />
 <br />
 <br />
- The hosted UI uses the domain we specified as the app client domain and prompts us to log in :  <br/>
+ The hosted UI uses the domain we specified earlier as the app client domain, and prompts us to log in :  <br/>
   <br/>
 <img src="https://i.imgur.com/se8jBVD.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
@@ -366,7 +366,7 @@ Click View Hosted UI" to login as "testuser":  <br/>
 <br />
 <br />
 <br />
-  These are the JWT Credentials returned in the URL and copy-pasted into pages.  These tokens are base64 encoded but they are not encrypted.  They can be decoded into plain-text JSON that is easily readable:  <br/>
+  These are the JWT Credentials returned in the URL and copy-pasted into pages.  The two JWT tokens are the access token and the Id token. These tokens are base64 encoded but they are not encrypted.  They can be decoded into plain-text JSON that is easily readable:  <br/>
    <br/>
 <img src="https://i.imgur.com/f0CgKNf.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
@@ -404,7 +404,7 @@ Click View Hosted UI" to login as "testuser":  <br/>
 <br />
  
  JWT consists of three parts: the header, body, and signature.  The integrity of the information in the JWT is protected by the Hash-Based Message Authentication Code (HMAC) in the signature. Although the header and the body of the JWT are hashed to create the signaure, which can be verified to ensure that the token was not altered or tampered with, it is only the signatue that is encrypted (usually with the private key of the authorization server that issued the JWT) The rest of the token is base64 encoded, which means that the header and body can be read by anyone. This is why it's important not to put sensitive information in the body of the JWT.  
- Another security risk with OAuth 2.0 Implicit Grant is that these tokens are sent in the URL or the unprotected "front channel" which is not encrypted.  Sending tokens in the URL not only potentially exposes the information in the body of the token, but also increases the chances that a JWT will be intentionally stolen or even unintentionaly logged by the browser history or any other application that can access the URL bar. If a JWT is intercepted, it can be used by a malicious actor to impersonate the intended user and hijack the session.  JWTs should be protected like API keys, passwords, or any other credentials, and should not be sent in unecrypted channels where they can be easily intercepted.   <br/>
+ Another security risk with OAuth 2.0 Implicit Grant is that these tokens are sent in the URL or the unprotected "front channel" which is not encrypted.  Sending tokens in the URL not only potentially exposes the information in the body and header of the token, but also increases the chances that a JWT will be intentionally stolen or even unintentionaly logged by the browser history or any other application that can access information in the URL bar. If a JWT is intercepted, it can be used by a malicious actor to impersonate the intended user and hijack the session.  JWTs should be protected like API keys, passwords, or any other credentials, and should not be sent in unecrypted channels where they can be easily intercepted.   <br/>
  <br />
 <br />
 <br />
@@ -418,12 +418,12 @@ We configured the Cognito user pool to issue the tokens, but we still haven't at
 <br />
 <br />
 <br />
-55 Now that we have JWT credentails extracted from Cognito it's time to secure our API so that it cannot be accessed without first logging in to retrieve credentials:  <br/>
+Now that we can generate JWTs with Cognito user pool, and retrive those JWTs thorugh the app client, it's time to secure our API Gateway with a JWT authorizer so that a valid JWT will be required in the header of subsequent API calls to this endpoint to successfully reach our protected resource:  <br/>
 <img src="https://i.imgur.com/AT6dKCr.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-56 Attach Cognito Authorizer to secure API Gateway:  <br/>
+ Attach Cognito Authorizer to secure API Gateway:  <br/>
 <img src="https://i.imgur.com/uDTpliP.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
