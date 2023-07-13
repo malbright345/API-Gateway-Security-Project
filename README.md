@@ -460,32 +460,32 @@ Sending a request without an authorization header with a valid JWT results in Po
 <br />
 <br />
 <br />
- To use JWT as credentails in Postman and access the protected resource, copy and paste the JWT access token that we got from the callback url into Postman:  <br/>
+ To use JWT as credentails in Postman to access the protected resource, copy and paste the JWT access token that we got from the callback URL into the authorization header of the API call from Postman:  <br/>
 <img src="https://i.imgur.com/QAaYrIW.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-63 Paste Authorization token into authorization header in postman api:  <br/>
+ Paste authorization token into the authorization header in postman API:  <br/>
 <img src="https://i.imgur.com/bvazzoh.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-64 Paste the token into the Authorization header and resend the request to the api:  <br/>
+Paste the token into the Authorization header and resend the request to the API:  <br/>
 <img src="https://i.imgur.com/BDsQHix.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-65 we have the 200 OK response and the lambda message showing that we have access because the token was included in the header:  <br/>
+ We have the "200 OK" response and the "Hello from Lambda: Secure me!" message proving that we now have access to the protected  because a valid JWT was included in the authorization header of the API request coming from Postman:  <br/>
 <img src="https://i.imgur.com/HEiKnYN.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-66 Access Token that was used in authorization header to access API as authorized user:  <br/>
+ Access Token that was used in authorization header to access API as authorized user:  <br/>
 <img src="https://i.imgur.com/171IOfQ.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-67 The signature at the bottom is verified so its a valid token just needed to be verified by Cognito authorizer as well:  <br/>
+ The signature at the bottom is verified so its a valid token just needed to be verified by Cognito authorizer as well for access to be granted:  <br/>
 <img src="https://i.imgur.com/8Cc8AFS.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
