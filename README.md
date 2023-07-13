@@ -413,7 +413,7 @@ Click View Hosted UI" to login as "testuser":  <br/>
 <br />
 <br />
 
-We configured the Cognito user pool to issue the tokens, but we still haven't attached a JWT authorizer to the API Gateway to actually secure our resources.  We can prove that the API Gateway is still public by refreshing the browser to see the "Hello from Lambda: Secure me!" message  <br/>
+We configured the Cognito User Pool to issue the tokens, but we still haven't attached a JWT authorizer to the API Gateway to actually secure our resources.  We can prove that the API Gateway is still public by refreshing the browser to see the "Hello from Lambda: Secure me!" message  <br/>
 <img src="https://i.imgur.com/AMVcc8L.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
@@ -428,37 +428,39 @@ Now that we can generate JWTs with Cognito user pool, and retrive those JWTs tho
 <br />
 <br />
 <br />
-57 User pool id and app client id attach authorizer:  <br/>
+ The issuer URL of the identity provider (The Cognito user pool), user pool id, and app client id are required to attach the authorizer.  This is becasue the authorizer will compare amd match the issuer (Cognito user pool) and the audience of the JWTs it receives as part of the JWT validation process before allowing API calls to proceed.  The authorizer will also use the public key of the Cognito user pool authorization server to decrypt and verify the JWT signature.  If a JWT signature cannot be verififed, access to the resource should not be granted :  <br/>
 <img src="https://i.imgur.com/RItcY1f.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-57.01 Client ID and user pool id that are put in the authorizer are present in the token claims:  <br/>
+ Client ID and user pool id entered when attaching the authorizer can be observed in the JWT claims and will be used as part of the verification process of the JWT to decide whether the JWT is valid and should be accepted:  <br/>
 <img src="https://i.imgur.com/9OEhNAy.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-58 JWT Authorizer now secures API:  <br/>
+ JWT Authorizer now secures API Gateaway Get/my-api-lambda path.  Valid JWT now required in the header of API call to this path or request for access will be denied:  <br/>
+ <br/>
 <img src="https://i.imgur.com/PrOfq07.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-59 Now that JWT authorizer is attached to API Gateway, my-api-lambda is no longer accessible without first logging in and obtaining JWT credentials:  <br/>
+ Now that JWT authorizer is attached to API Gateway, my-api-lambda is no longer accessible without first logging in and obtaining JWT credentials:  <br/>
 <img src="https://i.imgur.com/CYuXfXu.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-60 Resending API invoke url to see if the resposne is now differnet that the authorizer has been attached:  <br/>
+60 Resending API "invoke url" to see if the resposne is now different:  <br/>
 <img src="https://i.imgur.com/AEV5NFX.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-61 Postman now returns 401 unauthorized and message unauthorized:  <br/>
+Sending a request without an authorization header with a valid JWT results in Postman now returning "401 unauthorized" and "unauthorized" in the message field instead of "Hello from Lambda: Secure me!" proving that the resourcce is no longer publicly accessible:  <br/>
+ <br/>
 <img src="https://i.imgur.com/4LWylVy.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
-62 To use JWT as credentails in Postman copy the access token that we got from the callback url:  <br/>
+ To use JWT as credentails in Postman and access the protected resource, copy and paste the JWT access token that we got from the callback url into Postman:  <br/>
 <img src="https://i.imgur.com/QAaYrIW.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
