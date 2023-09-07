@@ -17,8 +17,8 @@ In this demo, We will create an Amazon API gateway, integrate it with a Lambda f
 - <b>Amazon API Gateway</b>
 - <b>Amazon Lambda Function</b>
 - <b>Amazon Cognito</b>
-- <b>Postman.com</b>
-- <b>jwt.io</b>
+- <b>Postman API Platform</b>
+- <b>JWT.io</b>
 
 We will use Amazon Web Services (AWS) to illustrate OAuth 2.0 implicit grant work flow, jwt.io to decode and display the plain-text JSON web tokens, and Postman.com to test access controls to the API Gateway. 
 <h1>Program walk-through:</h1>
